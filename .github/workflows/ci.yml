@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Build & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Syntax check
+        run: |
+          if [ -d src ]; then
+            python -m compileall -q src
+          else
+            echo "src/ not present yet - nothing to compile"
+          fi
+
+      - name: Unit tests
+        run: |
+          if [ -d tests ]; then
+            python -m unittest discover -s tests -v
+          else
+            echo "tests/ not present yet - skipped"
+          fi
