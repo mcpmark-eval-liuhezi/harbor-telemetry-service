@@ -61,6 +61,7 @@ def validate_event(event: dict) -> dict:
         "value": value,
         "source": source if source else "unknown",
         "received_at": int(time.time()),
+    }
 
 
 def ingest(events: list[dict]) -> tuple[list[dict], list[tuple[int, dict, str]]]:
